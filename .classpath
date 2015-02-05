@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="D:/Andriod/serviceCompositionAnalysis/lib/jedis-2.5.2.jar"/>
+	<classpathentry kind="lib" path="D:/Andriod/serviceCompositionAnalysis/lib/slf4j-api-1.6.1.jar"/>
+	<classpathentry kind="lib" path="D:/Andriod/serviceCompositionAnalysis/lib/json-simple.jar"/>
+	<classpathentry kind="lib" path="D:/Andriod/serviceCompositionAnalysis/lib/gremlin-groovy-3.0.0.M5.jar"/>
+	<classpathentry kind="lib" path="D:/Andriod/serviceCompositionAnalysis/lib/mysql-connector-java-5.1.22-bin.jar"/>
+	<classpathentry kind="lib" path="D:/Andriod/serviceCompositionAnalysis/lib/blueprints-core-2.6.0.jar"/>
+	<classpathentry kind="lib" path="D:/Andriod/serviceCompositionAnalysis/lib/orientdb-core-2.0.1.jar"/>
+	<classpathentry kind="lib" path="D:/Andriod/serviceCompositionAnalysis/lib/orientdb-graphdb-2.0.1.jar"/>
+	<classpathentry kind="lib" path="D:/Andriod/serviceCompositionAnalysis/lib/wink-server-1.4.jar"/>
+	<classpathentry kind="lib" path="D:/Andriod/serviceCompositionAnalysis/lib/wink-client-1.4.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="D:/Andriod/serviceCompositionAnalysis/lib/javax.ws.rs-api-2.0.jar"/>
+	<classpathentry kind="lib" path="D:/Andriod/serviceCompositionAnalysis/lib/com.ibm.json_1.0.1.jar"/>
+	<classpathentry kind="lib" path="D:/Andriod/serviceCompositionAnalysis/lib/jackson-core-asl-1.9.11.jar"/>
+	<classpathentry kind="lib" path="D:/Andriod/serviceCompositionAnalysis/lib/jackson-mapper-asl-1.9.11.jar"/>
+	<classpathentry kind="lib" path="D:/Andriod/serviceCompositionAnalysis/lib/jackson-databind-2.3.5.jar"/>
+	<classpathentry kind="lib" path="D:/Andriod/serviceCompositionAnalysis/lib/jackson-core-2.4.4.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
