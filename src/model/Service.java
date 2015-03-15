@@ -6,7 +6,14 @@ public class Service {
 	private String identifier;
 	private Metric[] metrics;
 	private String timeRange;
+	private String[] downstream;
 	
+	public String[] getDownstream() {
+		return downstream;
+	}
+	public void setDownstream(String[] downstream) {
+		this.downstream = downstream;
+	}
 	public String getServiceName() {
 		return serviceName;
 	}

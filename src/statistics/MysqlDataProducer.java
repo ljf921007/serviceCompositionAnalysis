@@ -18,7 +18,8 @@ public class MysqlDataProducer {
 		}*/
 		
 		try {
-			bd.addItem("first", "thinking", "many values", "under considering");
+		//	bd.addItem("first", "thinking", "many values", "under considering");
+			bd.addItems();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
