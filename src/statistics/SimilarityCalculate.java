@@ -2,12 +2,16 @@ package statistics;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class SimilarityCalculate {
 	//计算每个服务节点与给定节点的模式相似度
 	//注意metric数据的类型
 	//外部的list是所有服务的列表，内部的list是每个服务对应的时间范围内的metric数据的列表
-	public List<Double> getcosineSim(List<ArrayList<String>> metrics) {
+	//firstAnomalyService代表异常被发现的第一个节点
+	
+	//没有对metric数据为空的记录进行处理，当出现metric数据为空的情况时，可能会导致运行时出现错误
+	public List<Double> getcosineSim(List<ArrayList<String>> metrics, int firstAnomalyService) {
 		List<Double> result = new ArrayList<Double>();
 		for(int i = 1;i < metrics.size();i++) {
 			double cosine = 0;
@@ -16,7 +20,7 @@ public class SimilarityCalculate {
 			double vectorPro = 0;
 			int length = metrics.get(0).size();
 			for(int j = 0;j < length;j++) {
-				double firstNodeMetric = Double.parseDouble(metrics.get(0).get(j));
+				double firstNodeMetric = Double.parseDouble(metrics.get(firstAnomalyService).get(j));
 				double otherNodeMetric = Double.parseDouble(metrics.get(i).get(j));
 			//	vector1 += metrics.get(0).get(j)*metrics.get(0).get(j);
 			//	vector2 += metrics.get(i).get(j)*metrics.get(i).get(j);
@@ -29,5 +33,14 @@ public class SimilarityCalculate {
 			result.add(cosine);
 		}
 		return result;
+	}
+	
+	//
+	public List<Double> getSimilarity (List<Double> simpleSim, Set<String> factor) {
+		if (factor == null || factor.isEmpty())
+			return simpleSim;
+		List<Double> similarity = new ArrayList<Double>();
+		
+		return similarity;
 	}
 }

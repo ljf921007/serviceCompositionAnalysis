@@ -1,6 +1,7 @@
 package statistics;
 
 import java.util.List;
+import java.util.Random;
 
 public class CallGraphGenerator {
 	//Graph g = TinkerGraph.open();
@@ -33,6 +34,18 @@ public class CallGraphGenerator {
 			}
 		}
 		return regraph;
+	}
+	
+	public int[][] getSample(int size) {
+		int[][] matrix = new int[size][size];
+		Random random = new Random();
+		for (int i = 0;i < size;i++) {
+			for (int j = 0;j < size;j++) {
+				int value = random.nextInt(10) >= 5 ? 1 : 0;
+				matrix[i][j] = value;
+			}
+		}
+		return matrix;
 	}
 	
 	
