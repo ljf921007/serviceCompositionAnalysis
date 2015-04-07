@@ -7,6 +7,8 @@ public class Params {
 	public static final double alpha = 0.2;
 	//pagerank中需要的系数
 	public static final double rho = 0.5;
+	//pagerank算法中的收敛阈值
+	public static final double threshold = 0.00000000001;
 	//存放服务调用图的文件
 	public static final String fileForGraph = "f:\\graph.txt";
 	//干扰因素的存储文件

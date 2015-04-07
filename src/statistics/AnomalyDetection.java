@@ -1,7 +1,9 @@
 package statistics;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import model.Params;
 
@@ -30,6 +32,29 @@ public class AnomalyDetection {
 		}
 		
 		return serviceAnomaly;
+	}
+	
+	public Map<String,String> detectSingleServiceAnomaly(List<String> metrics) {
+		if(metrics.isEmpty() || metrics == null) 
+			return null;
+		int upperLimit = Params.commonMetric + Params.upperBound;
+		int lowerLimit = Params.commonMetric - Params.lowerBound;
+		Map<String,String> anomalies = new HashMap<String,String>();
+		int count = 0;
+		int timeRange = 0;
+		for (String metric : metrics) {
+			timeRange++;
+			int value = Integer.parseInt(metric);
+			if (value > upperLimit || value < lowerLimit) {
+				count++;
+			} else {
+				count = 0;
+			}
+			if (count >= 10) {
+				anomalies.put(String.valueOf(timeRange - count), String.valueOf(timeRange));
+			}
+		}
+		return anomalies;
 	}
 
 }

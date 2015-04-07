@@ -18,8 +18,12 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import model.Params;
+import statistics.CalculateVector;
+import statistics.CallGraphGenerator;
 import statistics.DisturbFactor;
+import statistics.PerPageRank;
 import statistics.SimilarityCalculate;
+import util.ServiceHandler;
 import dao.BaseDao;
 
 public class GUI extends JFrame implements ActionListener {
@@ -32,8 +36,8 @@ public class GUI extends JFrame implements ActionListener {
 		new GUI("交互分析模块");
 	}
 	
-	JLabel noteInformation,anomalyService,anomalyMetric,anomalyTime,Information;
-	JTextField textAnomalyService,textAnomalyMetric,textAnomalyTime;
+	JLabel noteInformation,anomalyService,anomalyMetric,anomalyTime,outputNumber;
+	JTextField textAnomalyService,textAnomalyMetric,textAnomalyTime,textoutputNum;
 	JButton submit;
 	JTextArea result;
 	
@@ -66,19 +70,25 @@ public class GUI extends JFrame implements ActionListener {
 	anomalyService=new JLabel("异常服务节点：");
 	add(g,c,anomalyService,0,1,1,1);
 	//异常服务节点输入框
-	textAnomalyService=new JTextField(10);
+	textAnomalyService=new JTextField(12);
 	add(g,c,textAnomalyService,1,1,2,1);
 	//出现异常的服metric数据
 	anomalyMetric=new JLabel("Metric数据：");
 	add(g,c,anomalyMetric,0,2,1,1);
 	//异常metric输入框
-	textAnomalyMetric=new JTextField(10);
+	textAnomalyMetric=new JTextField(12);
 	add(g,c,textAnomalyMetric,1,2,2,1);
 	//异常被发现的时间
 	anomalyTime=new JLabel("异常发现时间：");
 	add(g,c,anomalyTime,0,3,1,1);
-	textAnomalyTime=new JTextField(10);
+	textAnomalyTime=new JTextField(12);
 	add(g,c,textAnomalyTime,1,3,2,1);
+	//
+	outputNumber=new JLabel("输出服务数量：");
+	add(g,c,outputNumber,0,4,1,1);
+	textoutputNum=new JTextField(12);
+	add(g,c,textoutputNum,1,4,2,1);
+	
 	//输入数据说明
 	/*Information=new JLabel("为方便测试，服务节点名称从0到99,metric数据使用metric1,异常时间以整型代替");
 	add(g,c,textAnomalyTime,0,4,1,1);*/
@@ -116,6 +126,7 @@ public class GUI extends JFrame implements ActionListener {
 	String serviceName=textAnomalyService.getText();
 	String metricName=textAnomalyMetric.getText();
 	String timeRange = textAnomalyTime.getText();
+	int serviceNumber = Integer.parseInt(textoutputNum.getText());
 	
 	
 	BaseDao bd = new BaseDao();
@@ -135,16 +146,23 @@ public class GUI extends JFrame implements ActionListener {
 //	result.setText(beginTime+"" + metrics.get(0).get(50));
 	SimilarityCalculate sc = new SimilarityCalculate();
 //	result.setText(beginTime+"" + metrics.get(0).get(50));
-	List<Double> similarity = sc.getcosineSim(metrics, Integer.parseInt(serviceName));
+	List<Double> similarity = sc.getcosineSim(metrics, serviceName);
 //	System.out.println(similarity.toString());
 //	result.setText(similarity.toString());
 	DisturbFactor df = new DisturbFactor();
 	List<HashSet<String>> disFactors = df.getFactorsFromStore(Params.fileForFactors);
 	Set<String> factor = df.matchDisturbFactor(disFactors, similarity);
 	List<Double> finalSimilarity = sc.getSimilarity(similarity, factor);
-	
-	String results = "异常根源服务节点排序：" + "\n" + finalSimilarity.get(0) +"\n" +
-			finalSimilarity.get(1) + "\n" + finalSimilarity.get(2);
+	CalculateVector cv = new CalculateVector();
+	CallGraphGenerator cg = new CallGraphGenerator();
+	int[][] graph = cg.getCallGraph();
+	double[][] transMatrix = cv.getPMatrix(finalSimilarity, graph);
+	double[] preference = cv.getPV(finalSimilarity, serviceName);
+	PerPageRank ppr = new PerPageRank();
+	double[] pageRank = ppr.runPageRank(transMatrix, preference);
+	ServiceHandler sh = new ServiceHandler();
+	String[] resultService = sh.outputService(pageRank, serviceNumber);
+	String results = "异常根源服务节点排序：" + "\n" + resultService.toString();
 	result.setText(results);
 	}
 

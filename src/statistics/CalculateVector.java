@@ -8,7 +8,7 @@ import java.util.Map;
 //计算PageRank所需要的向量
 public class CalculateVector {
 	//计算偏好向量，firstAnomalyService是发现异常的的服务节点，从0开始计算
-	public double[] getPV(List<Double> similarity, int firstAnomalyService) {
+	public double[] getPV(List<Double> similarity, String firstAnomalyService) {
 		double[] PV = new double[similarity.size()];
 		double sum = 0;
 		for (int i = 0;i < similarity.size();i++) {
@@ -16,7 +16,7 @@ public class CalculateVector {
 		}
 		
 		//将发现异常的节点向量值设为0
-		PV[firstAnomalyService] = 0;
+		PV[Integer.parseInt(firstAnomalyService)] = 0;
 		
 		return PV;
 		

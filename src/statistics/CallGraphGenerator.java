@@ -3,6 +3,8 @@ package statistics;
 import java.util.List;
 import java.util.Random;
 
+import model.Params;
+
 public class CallGraphGenerator {
 	//Graph g = TinkerGraph.open();
 	public int[][] generateGlobalGraph(List<String> services) {
@@ -20,6 +22,12 @@ public class CallGraphGenerator {
 				graph[i][x] = 1;
 			}
 		}
+		
+		return graph;
+	}
+	
+	public int[][] getCallGraph() {
+		int[][] graph = new int[Params.serviceNumber][Params.serviceNumber];
 		
 		return graph;
 	}
